@@ -13,7 +13,7 @@ inputs:
     required: true
 runs:
   using: 'docker'
-  image: 'docker://orenakto/akto-utils:latest'
+  image: 'docker://aktosecurity/akto-puppeteer-replay:latest'
   entrypoint: "node"
   args:
     - "/usr/app/build/apps/index.js"
