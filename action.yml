@@ -12,19 +12,15 @@ inputs:
     description: 'API collection name'
     required: true
 runs:
-  using: "composite"
-  steps:
-    - name: Run static code analyser
-      shell: bash
-      run: |
-        docker run \
-          -e AKTO_DASHBOARD_URL=${{ inputs.AKTO_DASHBOARD_URL }} \
-          -e AKTO_API_KEY=${{ inputs.AKTO_API_KEY }} \
-          -e API_COLLECTION_NAME=${{ inputs.API_COLLECTION_NAME }} \
-          aktosecurity/akto-puppeteer-replay:static-code-analyser-changes \
-          node /usr/app/build/apps/index.js cli extract \
-          --IS_GITHUB_ACTION=true \
-          --AKTO_SYNC=true \
-          --AKTO_DASHBOARD_URL=${{ inputs.AKTO_DASHBOARD_URL }} \
-          --AKTO_API_KEY=${{ inputs.AKTO_API_KEY }} \
-          --API_COLLECTION_NAME=${{ inputs.API_COLLECTION_NAME }}
+  using: 'docker'
+  image: 'docker://aktosecurity/akto-puppeteer-replay:static-code-analyser-changes'
+  entrypoint: "node"
+  args:
+    - "/usr/app/build/apps/index.js"
+    - "cli"
+    - "extract"
+    - "--IS_GITHUB_ACTION=true"
+    - "--AKTO_SYNC=true"
+    - "--AKTO_DASHBOARD_URL=${{ inputs.AKTO_DASHBOARD_URL }}"
+    - "--AKTO_API_KEY=${{ inputs.AKTO_API_KEY }}"
+    - "--API_COLLECTION_NAME=${{ inputs.API_COLLECTION_NAME }}"
