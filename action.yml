@@ -13,7 +13,7 @@ inputs:
     required: true
 runs:
   using: 'docker'
-  image: 'docker://aktosecurity/akto-puppeteer-replay:latest'
+  image: 'docker://aktosecurity/akto-puppeteer-replay:static-code-analyser-changes'
   entrypoint: "node"
   args:
     - "/usr/app/build/apps/index.js"
